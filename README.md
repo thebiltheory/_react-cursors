@@ -1,3 +1,5 @@
+# WIP
+
 # react-cursors
 
 > Customize your react app with animated custom cursors
