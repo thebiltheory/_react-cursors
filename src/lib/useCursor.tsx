@@ -1,5 +1,6 @@
-import { useContext, useRef } from 'react'
+import { useContext, useEffect } from 'react'
 import { CursorContext } from './CursorProvider'
+import useHover from '../utils/useHover'
 
 // interface IUseCursor {
 //   id: string
@@ -8,7 +9,7 @@ import { CursorContext } from './CursorProvider'
 export const useCursor: any = (id: string) => {
   const { cursors } = useContext<any>(CursorContext)
   const cursor = cursors.find((cursor: any) => cursor.id === id)
-  const ref = useRef()
+  const [hoverRef, isHovered] = useHover()
 
   if (!cursor) {
     throw new Error(
@@ -18,6 +19,10 @@ export const useCursor: any = (id: string) => {
 
   const Component = cursor.component
 
-  return [Component, ref]
+  useEffect(() => {
+    console.log(isHovered)
+  }, [isHovered])
+
+  return [Component, hoverRef]
 }
 export default useCursor
