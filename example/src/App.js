@@ -9,18 +9,14 @@ const config = {
   cursors: [
     { id: 'star-fingers', component: Fingers },
     { id: 'circle', component: () => <div>Hello Circle</div> },
+    { id: 'algerie-flag', component: () => <div>🇩🇿</div> },
   ],
 }
 
 const App = () => {
   return (
     <CursorProvider config={config}>
-      <section>
-        <div>
-          <Card />
-        </div>
-      </section>
-      {/* <ExampleComponent text='Create React Library Example 😄' /> */}
+      <Card />
     </CursorProvider>
   )
 }
