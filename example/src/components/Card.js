@@ -2,16 +2,24 @@ import React from 'react'
 import { useCursor } from 'react-cursors'
 
 const Card = () => {
-  const [StarFingers, starRef] = useCursor('star-fingers')
+  const starRef = useCursor('star-fingers')
+  const circleRef = useCursor('circle')
 
   return (
-    <section
-      ref={starRef}
-      style={{ backgroundColor: 'mediumspringgreen', padding: '150px' }}
-    >
-      <StarFingers />
-      <div>Hello I'm a card</div>
-    </section>
+    <>
+      <section
+        ref={starRef}
+        style={{ backgroundColor: 'mediumspringgreen', padding: '150px' }}
+      >
+        <div>Star Fingers</div>
+      </section>
+      <section
+        ref={circleRef}
+        style={{ backgroundColor: 'crimson', padding: '150px', color: 'white' }}
+      >
+        <div>Circle Cursor</div>
+      </section>
+    </>
   )
 }
 

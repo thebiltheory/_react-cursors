@@ -7,7 +7,7 @@ import useHover from '../utils/useHover'
 // }
 
 export const useCursor: any = (id: string) => {
-  const { cursors } = useContext<any>(CursorContext)
+  const { cursors, setCurrentCursor } = useContext<any>(CursorContext)
   const cursor = cursors.find((cursor: any) => cursor.id === id)
   const [hoverRef, isHovered] = useHover()
 
@@ -20,9 +20,12 @@ export const useCursor: any = (id: string) => {
   const Component = cursor.component
 
   useEffect(() => {
+    if (isHovered) {
+      setCurrentCursor(Component)
+    }
     console.log(isHovered)
   }, [isHovered])
 
-  return [Component, hoverRef]
+  return hoverRef
 }
 export default useCursor
