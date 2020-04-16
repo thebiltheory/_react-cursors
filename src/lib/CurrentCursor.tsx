@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import useMove from './useMove'
-import useEventListener from '../utils/useEventListener'
 import { CursorContext } from './CursorContext'
+import useEventListener from '../utils/useEventListener'
 
 /**
  *
@@ -17,9 +16,18 @@ import { CursorContext } from './CursorContext'
 
 const CurrentCursor = ({ nextCursor }: any) => {
   const [currentCursorId, setCurrentCursorId] = useState(nextCursor)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
   const { cursors } = useContext<any>(CursorContext)
 
-  const { x, y, mouseHandle } = useMove()
+  const onMouseMove = useCallback(
+    ({ clientX: x, clientY: y }) => {
+      setMousePosition({ x, y })
+    },
+    [setMousePosition]
+  )
+
+  useEventListener('mousemove', onMouseMove)
 
   useEffect(() => {
     setCurrentCursorId(nextCursor)
@@ -35,10 +43,10 @@ const CurrentCursor = ({ nextCursor }: any) => {
 
   const Cursor = extractedCursor.component
 
-  useEventListener('mousemove', mouseHandle)
-
   return (
-    <motion.div animate={{ x, y, position: 'absolute' }}>
+    <motion.div
+      animate={{ x: mousePosition.x, y: mousePosition.y, position: 'absolute' }}
+    >
       <Cursor />
     </motion.div>
   )
