@@ -7,13 +7,11 @@ const variants = {
   in: {},
   out: {},
   mouseDown: {
-    height: '50px',
-    width: '50px',
-    fontSize: '50px',
+    fontSize: '100px',
   },
 
-  click: {
-    fontSize: '50px',
+  mouseUp: {
+    fontSize: '18px',
   },
 }
 
@@ -24,7 +22,7 @@ const StarFinger = () => {
     <Cursor
       onDoubleClick={() => console.log('Double Click')}
       onClick={() => setAnimation('click')}
-      onMouseUp={() => console.log('MouseUp')}
+      onMouseUp={() => setAnimation('mouseUp')}
       onMouseDown={() => setAnimation('mouseDown')}
       onAuxClick={() => console.log('Auxiliary Click')}
       onContextMenu={() => console.log('Context Menu')}

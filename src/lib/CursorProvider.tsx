@@ -1,21 +1,23 @@
-import React, { createContext, useState, useCallback } from 'react'
-import useEventListener from '../utils/useEventListener'
+import React, { createContext, useState } from 'react'
+
 import CurrentCursor from './CurrentCursor'
+import useMove from './useMove'
 
 export const CursorContext = createContext({})
 
 const CursorProvider: React.FC<any> = ({ config, children }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const { mouseHandle } = useMove()
+  // const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [currentCursor, setCurrentCursor] = useState('default-cursor')
 
-  const onMouseMove = useCallback(
-    ({ clientX: x, clientY: y }) => {
-      setMousePosition({ x, y })
-    },
-    [setMousePosition]
-  )
+  // const onMouseMove = useCallback(
+  //   ({ clientX: x, clientY: y }) => {
+  //     setMousePosition({ x, y })
+  //   },
+  //   [setMousePosition]
+  // )
 
-  useEventListener('mousemove', onMouseMove)
+  // useEventListener('mousemovea', onMouseMove)
 
   const contextValue = {
     ...config,
@@ -27,13 +29,12 @@ const CursorProvider: React.FC<any> = ({ config, children }) => {
   }
 
   return (
-    <CursorContext.Provider value={contextValue}>
-      <CurrentCursor
-        nextCursor={currentCursor}
-        cursorPosition={mousePosition}
-      />
-      {children}
-    </CursorContext.Provider>
+    <div onMouseMove={mouseHandle}>
+      <CursorContext.Provider value={contextValue}>
+        <CurrentCursor nextCursor={currentCursor} />
+        {children}
+      </CursorContext.Provider>
+    </div>
   )
 }
 
