@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { ExampleComponent, CursorProvider } from 'react-cursors'
+import { ExampleComponent, CursorProvider, useCursor } from 'react-cursors'
 import Card from './components/Card'
+import Section from './components/Section'
 
 const Fingers = () => <div>💫🤞🏽Star Fingers</div>
 
@@ -14,9 +15,19 @@ const config = {
 }
 
 const App = () => {
+  const items = new Array(6).fill(null)
+
   return (
     <CursorProvider config={config}>
-      <Card />
+      <Section>
+        {items.map((card, index) => {
+          return (
+            <div style={{ margin: '50px' }} key={`card-${index}`}>
+              <Card />
+            </div>
+          )
+        })}
+      </Section>
     </CursorProvider>
   )
 }

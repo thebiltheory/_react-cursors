@@ -4,10 +4,12 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "framer-motion": "^1.10.3",
     "react": "link:../node_modules/react",
+    "react-cursors": "link:..",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
-    "react-cursors": "link:.."
+    "styled-components": "^5.1.0"
   },
   "scripts": {
     "start": "node ../node_modules/react-scripts/bin/react-scripts.js start",

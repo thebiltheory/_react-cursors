@@ -1,25 +1,28 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useCallback } from 'react'
 import Cursor from './Cursor'
+import useEventListener from '../utils/useEventListener'
 
 export const CursorContext = createContext({})
 
 const CursorProvider: React.FC<any> = ({ config, children }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [currentCursor, setCurrentCursor] = useState(<div>Default</div>)
-  console.log(mousePosition, currentCursor)
 
-  const onMouseMove = (event: any) => {
-    const { pageX: x, pageY: y } = event
-    setMousePosition({ x, y })
-  }
+  const onMouseMove = useCallback(
+    ({ clientX: x, clientY: y }) => {
+      setMousePosition({ x, y })
+    },
+    [setMousePosition]
+  )
 
-  useEffect(() => {
-    document.addEventListener('mousemove', onMouseMove)
-    return () => document.removeEventListener('mousemove', onMouseMove)
-  })
+  useEventListener('mousemove', onMouseMove)
 
   const contextValue = {
     ...config,
+    cursors: [
+      { id: 'default-cursor', component: () => <div>☄️</div> },
+      ...config.cursors,
+    ],
     setCurrentCursor,
   }
 

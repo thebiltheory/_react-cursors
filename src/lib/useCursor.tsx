@@ -2,13 +2,10 @@ import { useContext, useEffect } from 'react'
 import { CursorContext } from './CursorProvider'
 import useHover from '../utils/useHover'
 
-// interface IUseCursor {
-//   id: string
-// }
-
-export const useCursor: any = (id: string) => {
+export const useCursor = (id: string) => {
   const { cursors, setCurrentCursor } = useContext<any>(CursorContext)
   const cursor = cursors.find((cursor: any) => cursor.id === id)
+  const fallback = cursors.find((cursor: any) => cursor.id === 'default-cursor')
   const [hoverRef, isHovered] = useHover()
 
   if (!cursor) {
@@ -18,14 +15,16 @@ export const useCursor: any = (id: string) => {
   }
 
   const Component = cursor.component
+  const DefaultCursor = fallback.component
 
   useEffect(() => {
     if (isHovered) {
       setCurrentCursor(Component)
+    } else {
+      setCurrentCursor(DefaultCursor)
     }
-    console.log(isHovered)
   }, [isHovered])
 
-  return hoverRef
+  return [hoverRef, isHovered /* isNear */]
 }
 export default useCursor
