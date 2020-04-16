@@ -7,11 +7,12 @@ const CursorProvider: React.FC<any> = ({ config, children }) => {
   const [contextValue] = useState({
     cursors: [
       { id: 'default-cursor', component: () => <div>☄️</div> },
-      ...config.cursors,
+      ...config.cursors
     ],
-    setCurrentCursor,
+    setCurrentCursor
   })
 
+  // The rest of your rendering logic
   return (
     <CursorProviderWrapper value={contextValue}>
       <CurrentCursor nextCursor={currentCursor} />
