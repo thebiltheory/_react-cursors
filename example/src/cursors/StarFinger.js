@@ -11,7 +11,11 @@ const variants = {
   },
 
   mouseUp: {
-    fontSize: '18px',
+    fontSize: '20px',
+  },
+
+  click: {
+    rotate: [0, 0, 270, 270, 0],
   },
 }
 

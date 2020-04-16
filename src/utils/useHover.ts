@@ -1,45 +1,37 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 
 export default function useHover() {
   const [value, setValue] = useState(false)
 
-  const ref = useRef<any>(null)
-  const timerRef = useRef<any>(null)
+  const ref = useRef<HTMLElement>(null)
 
-  const handleMouseOver = useCallback(() => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current)
-    }
-    timerRef.current = setTimeout(() => {
-      setValue(true)
-    }, 0)
-  }, [setValue])
+  const handleMouseEvents = useCallback(
+    ({ clientX: x, clientY: y }) => {
+      if (ref && ref.current) {
+        console.log(x, y)
+        const { bottom, left, right, top } = ref.current.getBoundingClientRect()
+        console.log(left, right, top, bottom)
 
-  const handleMouseOut = useCallback(() => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current)
-    }
-    timerRef.current = setTimeout(() => {
-      setValue(false)
-    }, 0)
-  }, [setValue])
-
-  const callbackRef = useCallback(
-    (node: any): any => {
-      if (ref.current) {
-        ref.current.removeEventListener('mouseover', handleMouseOver)
-        ref.current.removeEventListener('mouseout', handleMouseOut)
-      }
-
-      ref.current = node
-
-      if (ref.current) {
-        ref.current.addEventListener('mouseover', handleMouseOver)
-        ref.current.addEventListener('mouseout', handleMouseOut)
+        const isOverlapping = x >= left && x <= right && y >= top && y <= bottom
+        setValue(isOverlapping)
       }
     },
-    [handleMouseOut, handleMouseOver]
+    [setValue, ref]
   )
 
-  return [callbackRef, value]
+  useEffect(() => {
+    if (ref && ref.current) {
+      ref.current.addEventListener('mousemove', handleMouseEvents)
+      ref.current.addEventListener('mouseleave', handleMouseEvents)
+    }
+
+    return () => {
+      if (ref && ref.current) {
+        ref.current.removeEventListener('mousemove', handleMouseEvents)
+        ref.current.removeEventListener('mouseleave', handleMouseEvents)
+      }
+    }
+  }, [ref, handleMouseEvents])
+
+  return [ref, value]
 }
