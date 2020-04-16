@@ -26,7 +26,7 @@ const StarFinger = () => {
       onMouseDown={() => setAnimation('mouseDown')}
       onAuxClick={() => console.log('Auxiliary Click')}
       onContextMenu={() => console.log('Context Menu')}
-      onMouseMove={() => console.log('Mouse Moving')}
+      // onMouseMove={() => console.log('Mouse Moving')}
       onMouseEnter={() => console.log('Mouse Entered')}
       onMouseLeave={() => console.log('Mouse Left')}
     >

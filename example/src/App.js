@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ExampleComponent, CursorProvider, useCursor } from 'react-cursors'
+import { CursorProvider } from 'react-cursors'
 import Card from './components/Card'
 import Section from './components/Section'
 import StarFinger from './cursors/StarFinger'
