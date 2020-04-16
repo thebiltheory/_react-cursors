@@ -1,6 +1,6 @@
 import React, { createContext, useState, useCallback } from 'react'
-import Cursor from './Cursor'
 import useEventListener from '../utils/useEventListener'
+import CurrentCursor from './CurrentCursor'
 
 export const CursorContext = createContext({})
 
@@ -28,7 +28,10 @@ const CursorProvider: React.FC<any> = ({ config, children }) => {
 
   return (
     <CursorContext.Provider value={contextValue}>
-      <Cursor nextCursor={currentCursor} cursorPosition={mousePosition} />
+      <CurrentCursor
+        nextCursor={currentCursor}
+        cursorPosition={mousePosition}
+      />
       {children}
     </CursorContext.Provider>
   )

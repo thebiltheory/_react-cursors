@@ -1,36 +1,58 @@
-import React, { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import React from 'react'
+import useEventListener from '../utils/useEventListener'
 
-/**
- *
- * Todo:
- * Needs to do something:
- * - onClick
- * - onProximity
- * - onMouseOver
- * - onMouseOut
- *
- */
+const Cursor: any = ({
+  children,
+  onClick,
+  onAuxClick,
+  onDoubleClick,
+  onMouseUp,
+  onContextMenu,
+  onMouseMove,
+  onMouseEnter,
+  onMouseLeave,
+}: any) => {
+  /**
+   * On Click
+   */
+  useEventListener('mousedown', onClick)
 
-const Cursor = ({ nextCursor, cursorPosition }: any) => {
-  const [CurrentCursor, setCurrentCursor] = useState(nextCursor)
-  const [position, setPosition] = useState(cursorPosition)
+  /**
+   * onAuxClick
+   */
+  useEventListener('auxclick', onAuxClick)
 
-  useEffect(() => {
-    setCurrentCursor(nextCursor)
-  }, [nextCursor])
+  /**
+   * onDoubleClick
+   */
+  useEventListener('dblclick', onDoubleClick)
 
-  useEffect(() => {
-    setPosition(cursorPosition)
-  }, [cursorPosition])
+  /**
+   * onMouseUp
+   */
+  useEventListener('mouseup', onMouseUp)
 
-  return (
-    <motion.div
-      animate={{ x: position.x, y: position.y, position: 'absolute' }}
-    >
-      {CurrentCursor}
-    </motion.div>
-  )
+  /**
+   * onContextMenu
+   */
+  useEventListener('contextmenu', onContextMenu)
+
+  /**
+   * onMouseMove
+   */
+  useEventListener('mousemove', onMouseMove)
+
+  /**
+   * onMouseEnter
+   */
+  useEventListener('mouseenter', onMouseEnter)
+
+  /**
+   * onMouseLeave
+   */
+  useEventListener('mouseleave', onMouseLeave)
+
+  return <div>{children}</div>
 }
 
 export default Cursor

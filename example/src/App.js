@@ -3,12 +3,11 @@ import React from 'react'
 import { ExampleComponent, CursorProvider, useCursor } from 'react-cursors'
 import Card from './components/Card'
 import Section from './components/Section'
-
-const Fingers = () => <div>💫🤞🏽Star Fingers</div>
+import StarFinger from './cursors/StarFinger'
 
 const config = {
   cursors: [
-    { id: 'star-fingers', component: Fingers },
+    { id: 'star-fingers', component: StarFinger },
     { id: 'circle', component: () => <div>Hello Circle</div> },
     { id: 'algerie-flag', component: () => <div>🇩🇿</div> },
   ],
