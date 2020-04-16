@@ -7,7 +7,7 @@ const variants = {
   in: {},
   out: {},
   mouseDown: {
-    fontSize: '10px',
+    fontSize: '100px',
   },
 
   mouseUp: {
