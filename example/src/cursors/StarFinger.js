@@ -7,11 +7,15 @@ const variants = {
   in: {},
   out: {},
   mouseDown: {
-    fontSize: '100px',
+    fontSize: '30px',
   },
 
   mouseUp: {
-    fontSize: '18px',
+    fontSize: '10px',
+  },
+
+  click: {
+    rotate: [0, 360],
   },
 }
 

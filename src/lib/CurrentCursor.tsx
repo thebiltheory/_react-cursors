@@ -30,7 +30,7 @@ const CurrentCursor = ({ nextCursor }: any) => {
   )
 
   if (!extractedCursor.component) {
-    throw new Error('Something went ')
+    throw new Error(`We didn't find cursor with id ${nextCursor}`)
   }
 
   const Cursor = extractedCursor.component

@@ -6,8 +6,6 @@ export default function useMove() {
   const mouseHandle = (event: any) => {
     if (event.persist) event.persist()
 
-    console.log('triggered mouseHandle')
-
     setPosition((_) => ({
       x: event.clientX,
       y: event.clientY,
