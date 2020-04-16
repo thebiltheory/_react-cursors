@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react'
-import { CursorContext } from './CursorProvider'
+import { CursorContext } from './CursorContext'
 import useHover from '../utils/useHover'
 
 export const useCursor = (id: string) => {

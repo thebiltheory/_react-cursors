@@ -1,8 +1,6 @@
-import React, { createContext, useState } from 'react'
-
+import React, { useState } from 'react'
 import CurrentCursor from './CurrentCursor'
-
-export const CursorContext = createContext({})
+import { CursorProviderWrapper } from './CursorContext'
 
 const CursorProvider: React.FC<any> = ({ config, children }) => {
   const [currentCursor, setCurrentCursor] = useState('default-cursor')
@@ -15,10 +13,10 @@ const CursorProvider: React.FC<any> = ({ config, children }) => {
   })
 
   return (
-    <CursorContext.Provider value={contextValue}>
+    <CursorProviderWrapper value={contextValue}>
       <CurrentCursor nextCursor={currentCursor} />
       {children}
-    </CursorContext.Provider>
+    </CursorProviderWrapper>
   )
 }
 
