@@ -3,27 +3,35 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 export default function useHover() {
   const [value, setValue] = useState(false)
 
-  const ref = useRef<any>(null)
+  const ref = useRef<HTMLElement>(null)
 
-  const handleMouseOver = useCallback(() => {
-    setValue(true)
-  }, [setValue])
+  const handleMouseEvents = useCallback(
+    ({ clientX: x, clientY: y }) => {
+      if (ref && ref.current) {
+        console.log(x, y)
+        const { bottom, left, right, top } = ref.current.getBoundingClientRect()
+        console.log(left, right, top, bottom)
 
-  const handleMouseOut = useCallback(() => {
-    setValue(false)
-  }, [setValue])
+        const isOverlapping = x >= left && x <= right && y >= top && y <= bottom
+        setValue(isOverlapping)
+      }
+    },
+    [setValue, ref]
+  )
 
   useEffect(() => {
     if (ref && ref.current) {
-      ref.current.addEventListener('mouseover', handleMouseOver)
-      ref.current.addEventListener('mouseleave', handleMouseOut)
+      ref.current.addEventListener('mousemove', handleMouseEvents)
+      ref.current.addEventListener('mouseleave', handleMouseEvents)
     }
 
     return () => {
-      ref.current.removeEventListener('mouseover', handleMouseOver)
-      ref.current.removeEventListener('mouseleave', handleMouseOut)
+      if (ref && ref.current) {
+        ref.current.removeEventListener('mousemove', handleMouseEvents)
+        ref.current.removeEventListener('mouseleave', handleMouseEvents)
+      }
     }
-  }, [ref, handleMouseOver, handleMouseOut])
+  }, [ref, handleMouseEvents])
 
   return [ref, value]
 }
