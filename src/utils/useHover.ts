@@ -1,28 +1,45 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useCallback } from 'react'
 
 export default function useHover() {
   const [value, setValue] = useState(false)
 
-  const ref = useRef(null)
+  const ref = useRef<any>(null)
+  const timerRef = useRef<any>(null)
 
-  const handleMouseOver = useCallback(() => setValue(true), [setValue])
-  const handleMouseOut = useCallback(() => setValue(false), [setValue])
+  const handleMouseOver = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current)
+    }
+    timerRef.current = setTimeout(() => {
+      setValue(true)
+    }, 0)
+  }, [setValue])
 
-  useEffect(
-    (): any => {
-      const node: any = ref.current
-      if (node) {
-        node.addEventListener('mouseenter', handleMouseOver)
-        node.addEventListener('mouseleave', handleMouseOut)
+  const handleMouseOut = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current)
+    }
+    timerRef.current = setTimeout(() => {
+      setValue(false)
+    }, 0)
+  }, [setValue])
 
-        return () => {
-          node.removeEventListener('mouseenter', handleMouseOver)
-          node.removeEventListener('mouseleave', handleMouseOut)
-        }
+  const callbackRef = useCallback(
+    (node: any): any => {
+      if (ref.current) {
+        ref.current.removeEventListener('mouseover', handleMouseOver)
+        ref.current.removeEventListener('mouseout', handleMouseOut)
+      }
+
+      ref.current = node
+
+      if (ref.current) {
+        ref.current.addEventListener('mouseover', handleMouseOver)
+        ref.current.addEventListener('mouseout', handleMouseOut)
       }
     },
-    [ref.current] // Recall only if ref changes
+    [handleMouseOut, handleMouseOver]
   )
 
-  return [ref, value]
+  return [callbackRef, value]
 }

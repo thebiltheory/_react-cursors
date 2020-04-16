@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { motion } from 'framer-motion'
+import { CursorContext } from './CursorProvider'
 
 /**
  *
@@ -13,22 +14,35 @@ import { motion } from 'framer-motion'
  */
 
 const CurrentCursor = ({ nextCursor, cursorPosition }: any) => {
-  const [CurrentCursor, setCurrentCursor] = useState(nextCursor)
+  const [currentCursorId, setCurrentCursorId] = useState(nextCursor)
+
   const [position, setPosition] = useState(cursorPosition)
 
+  const { cursors } = useContext<any>(CursorContext)
+
   useEffect(() => {
-    setCurrentCursor(nextCursor)
+    setCurrentCursorId(nextCursor)
   }, [nextCursor])
 
   useEffect(() => {
     setPosition(cursorPosition)
   }, [cursorPosition])
 
+  const extractedCursor = cursors.find(
+    (cursor: any) => cursor.id === currentCursorId
+  )
+
+  if (!extractedCursor.component) {
+    throw new Error('Something went ')
+  }
+
+  const Cursor = extractedCursor.component
+
   return (
     <motion.div
       animate={{ x: position.x, y: position.y, position: 'absolute' }}
     >
-      {CurrentCursor}
+      <Cursor />
     </motion.div>
   )
 }

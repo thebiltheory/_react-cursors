@@ -6,7 +6,7 @@ export const CursorContext = createContext({})
 
 const CursorProvider: React.FC<any> = ({ config, children }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [currentCursor, setCurrentCursor] = useState(<div>Default</div>)
+  const [currentCursor, setCurrentCursor] = useState('default-cursor')
 
   const onMouseMove = useCallback(
     ({ clientX: x, clientY: y }) => {

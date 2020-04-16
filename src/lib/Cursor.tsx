@@ -1,12 +1,26 @@
 import React from 'react'
 import useEventListener from '../utils/useEventListener'
 
-const Cursor: any = ({
+interface ICursor {
+  children: React.ReactNode
+  onClick: MouseEvent
+  onAuxClick: MouseEvent
+  onDoubleClick: MouseEvent
+  onMouseUp: MouseEvent
+  onMouseDown: MouseEvent
+  onContextMenu: MouseEvent
+  onMouseMove: MouseEvent
+  onMouseEnter: MouseEvent
+  onMouseLeave: MouseEvent
+}
+
+const Cursor: React.FC<ICursor> = ({
   children,
   onClick,
   onAuxClick,
   onDoubleClick,
   onMouseUp,
+  onMouseDown,
   onContextMenu,
   onMouseMove,
   onMouseEnter,
@@ -31,6 +45,11 @@ const Cursor: any = ({
    * onMouseUp
    */
   useEventListener('mouseup', onMouseUp)
+
+  /**
+   * onMouseDown
+   */
+  useEventListener('mousedown', onMouseDown)
 
   /**
    * onContextMenu

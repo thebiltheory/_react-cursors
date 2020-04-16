@@ -4,9 +4,8 @@ import useHover from '../utils/useHover'
 
 export const useCursor = (id: string) => {
   const { cursors, setCurrentCursor } = useContext<any>(CursorContext)
-  const cursor = cursors.find((cursor: any) => cursor.id === id)
-  const fallback = cursors.find((cursor: any) => cursor.id === 'default-cursor')
   const [hoverRef, isHovered] = useHover()
+  const cursor = cursors.find((cursor: any) => cursor.id === id)
 
   if (!cursor) {
     throw new Error(
@@ -14,14 +13,11 @@ export const useCursor = (id: string) => {
     )
   }
 
-  const Component = cursor.component
-  const DefaultCursor = fallback.component
-
   useEffect(() => {
     if (isHovered) {
-      setCurrentCursor(Component)
+      setCurrentCursor(id)
     } else {
-      setCurrentCursor(DefaultCursor)
+      setCurrentCursor('default-cursor')
     }
   }, [isHovered])
 
