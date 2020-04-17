@@ -1,19 +1,24 @@
 import React from 'react'
 import { useCursor } from 'react-cursors'
 
-const Card = () => {
+const Card = ({ image }) => {
   // const [starRef, isHover, isNear] = useCursor('star-fingers')
   const [starRef, isHover] = useCursor('star-fingers')
+
   return (
-    <section
+    <article
       ref={starRef}
       style={{
-        backgroundColor: isHover ? 'mediumspringgreen' : 'yellow',
-        padding: '150px',
+        backgroundColor: isHover ? 'mediumspringgreen' : 'lightsteelblue',
+        margin: '10px',
       }}
     >
-      <div>Star Fingers</div>
-    </section>
+      <img
+        style={{ maxWidth: '100%', width: '45vw' }}
+        src={image}
+        alt='React Cursors Example'
+      />
+    </article>
   )
 }
 

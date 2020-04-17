@@ -1,9 +1,9 @@
-import { useContext, useEffect } from 'react'
-import { CursorContext } from './CursorContext'
-import useHover from '../utils/useHover'
+import { useEffect } from 'react'
+import useHover from './useHover'
+import useCursorContext from './useCursorContext'
 
 export const useCursor = (id: string) => {
-  const { cursors, setCurrentCursor } = useContext<any>(CursorContext)
+  const { cursors, setCurrentCursor } = useCursorContext()
   const [hoverRef, isHovered] = useHover()
   const cursor = cursors.find((cursor: any) => cursor.id === id)
 

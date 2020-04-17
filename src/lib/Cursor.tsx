@@ -1,5 +1,6 @@
-import React from 'react'
-import useEventListener from '../utils/useEventListener'
+import React, { useState } from 'react'
+import useEventListener from '../hooks/useEventListener'
+import useCursorContext from '../hooks/useCursorContext'
 
 interface ICursor {
   children: React.ReactNode
@@ -15,6 +16,7 @@ interface ICursor {
 }
 
 const Cursor: React.FC<ICursor> = ({
+  className,
   children,
   onClick,
   onAuxClick,
@@ -26,6 +28,8 @@ const Cursor: React.FC<ICursor> = ({
   onMouseEnter,
   onMouseLeave,
 }: any) => {
+  const { isHovering } = useCursorContext()
+
   /**
    * On Click
    */
@@ -64,14 +68,22 @@ const Cursor: React.FC<ICursor> = ({
   /**
    * onMouseEnter
    */
-  useEventListener('mouseenter', onMouseEnter)
+  const [entered, setEntered] = useState(false)
+  if (isHovering && !entered) {
+    onMouseEnter()
+    setEntered(true)
+  }
 
   /**
    * onMouseLeave
    */
-  useEventListener('mouseleave', onMouseLeave)
+  const [left, setLeft] = useState(false)
+  if (!isHovering && !left) {
+    onMouseLeave()
+    setLeft(true)
+  }
 
-  return <div>{children}</div>
+  return <div className={className}>{children}</div>
 }
 
 export default Cursor

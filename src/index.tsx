@@ -1,7 +1,6 @@
 import * as React from 'react'
-import styles from './styles.module.css'
 import CursorProvider from './lib/CursorProvider'
-import useCursor from './lib/useCursor'
+import useCursor from './hooks/useCursor'
 import Cursor from './lib/Cursor'
 
 interface Props {
@@ -9,7 +8,7 @@ interface Props {
 }
 
 export const ExampleComponent = ({ text }: Props) => {
-  return <div className={styles.test}>Example Component: {text}</div>
+  return <div>Example Component: {text}</div>
 }
 
 export { CursorProvider, useCursor, Cursor }

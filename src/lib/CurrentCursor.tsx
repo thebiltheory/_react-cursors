@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { CursorContext } from './CursorContext'
-import useEventListener from '../utils/useEventListener'
+import useEventListener from '../hooks/useEventListener'
 
 /**
  *
