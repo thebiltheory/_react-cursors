@@ -14,16 +14,65 @@ npm install --save react-cursors
 
 ## Usage
 
-```tsx
-import React, { Component } from 'react'
+Create a `Cursor` Component
 
-import MyComponent from 'react-cursors'
-import 'react-cursors/dist/index.css'
+```javascript
+import React from 'react'
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+import { Cursor } from 'react-cursors'
+
+const MyCustomCursor = () => {
+  return (
+    <Cursor
+      className='star-platinum'
+      onDoubleClick={() => console.log('Double Click')}
+      onClick={() => console.log('click')}
+      onMouseUp={() => console.log('mouseUp')}
+      onMouseDown={() => console.log('mouseDown')}
+      onAuxClick={() => console.log('Auxiliary Click')}
+      onContextMenu={() => console.log('Context Menu')}
+      onMouseMove={() => console.log('Mouse moving')}
+      onMouseEnter={() => console.log('Just entered')}
+      onMouseLeave={() => console.log('Just Left')}
+    >
+      🚀
+    </Cursor>
+  )
+}
+```
+
+Configure the cursors
+
+```javascript
+const config = {
+  cursors: [
+    { id: 'my-cursor-id', component: MyCustomCursor },
+    { id: 'circle', component: () => <div>⭕️</div> },
+  ],
+}
+
+const App = () => {
+  return (
+    <CursorProvider config={config}>
+      <Section>
+        {images.map((url) => (
+          <Card image={url} />
+        ))}
+      </Section>
+    </CursorProvider>
+  )
+}
+```
+
+Use it
+
+```javascript
+import { useCursor } from 'react-cursors'
+
+const Card = ({ image }) => {
+  const [myCursorRef, isHover] = useCursor('my-cursor-id')
+
+  return <article ref={myCursorRef}>Content</article>
 }
 ```
 
