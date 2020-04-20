@@ -3,12 +3,14 @@ import { useCursor } from 'react-cursors'
 
 const Card = ({ image }) => {
   // const [starRef, isHover, isNear] = useCursor('star-fingers')
-  const [starRef, isHover] = useCursor(
-    'star-fingers' /* {
-    onMouseEnter: () => 'mouse entered card',
-    onMouseLeave: () => 'mouse left card',
-  } */
-  )
+  const [starRef, isHover, isNear] = useCursor('star-fingers', {
+    // Announce when the cursor is near
+    // Wondering if I should do this by default
+    proximity: true,
+
+    // Lock cursors upon a certain treshhold
+    lock: true,
+  })
 
   return (
     <article
