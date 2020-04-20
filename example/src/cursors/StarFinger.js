@@ -42,8 +42,8 @@ const StarFinger = () => {
       onAuxClick={() => console.log('Auxiliary Click')}
       onContextMenu={() => console.log('Context Menu')}
       onMouseMove={() => ''}
-      onMouseEnter={() => setAnimation('in')}
-      onMouseLeave={() => setAnimation('out')}
+      onMouseEnter={() => console.log('in')}
+      onMouseLeave={() => console.log('out')}
     >
       <motion.div
         style={{

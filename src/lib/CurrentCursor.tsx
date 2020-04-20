@@ -1,4 +1,11 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react'
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  cloneElement,
+  Children,
+} from 'react'
 import { motion } from 'framer-motion'
 import { CursorContext } from './CursorContext'
 import useEventListener from '../hooks/useEventListener'
@@ -14,7 +21,7 @@ import useEventListener from '../hooks/useEventListener'
  *
  */
 
-const CurrentCursor = ({ nextCursor }: any) => {
+const CurrentCursor = ({ nextCursor, nextRef }: any) => {
   const [currentCursorId, setCurrentCursorId] = useState(nextCursor)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
@@ -41,13 +48,17 @@ const CurrentCursor = ({ nextCursor }: any) => {
     throw new Error(`We didn't find cursor with id ${nextCursor}`)
   }
 
-  const Cursor = extractedCursor.component
+  const Cursor = ({ currentElement, hello }: any) => {
+    return Children.map(extractedCursor.component(), (child) => {
+      return cloneElement(child, { currentElement, hello })
+    })
+  }
 
   return (
     <motion.div
       animate={{ x: mousePosition.x, y: mousePosition.y, position: 'absolute' }}
     >
-      <Cursor />
+      <Cursor currentElement={nextRef} />
     </motion.div>
   )
 }

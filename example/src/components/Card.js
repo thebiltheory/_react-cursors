@@ -3,7 +3,12 @@ import { useCursor } from 'react-cursors'
 
 const Card = ({ image }) => {
   // const [starRef, isHover, isNear] = useCursor('star-fingers')
-  const [starRef, isHover] = useCursor('star-fingers')
+  const [starRef, isHover] = useCursor(
+    'star-fingers' /* {
+    onMouseEnter: () => 'mouse entered card',
+    onMouseLeave: () => 'mouse left card',
+  } */
+  )
 
   return (
     <article

@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
 
 const CursorProvider: React.FC<any> = ({ config, children }) => {
   const [currentCursor, setCurrentCursor] = useState('default-cursor')
-  const [isHovering, setIsHovering] = useState(null)
+  const [currentRef, setCurrentRef] = useState()
 
   const contextValue = {
     ...config,
@@ -19,15 +19,15 @@ const CursorProvider: React.FC<any> = ({ config, children }) => {
       { id: 'default-cursor', component: () => <div>☄️</div> },
       ...config.cursors,
     ],
-    isHovering,
+    currentRef,
     setCurrentCursor,
-    setIsHovering,
+    setCurrentRef,
   }
 
   return (
     <CursorProviderWrapper value={contextValue}>
       <GlobalStyle />
-      <CurrentCursor nextCursor={currentCursor} />
+      <CurrentCursor nextCursor={currentCursor} nextRef={currentRef} />
       {children}
     </CursorProviderWrapper>
   )

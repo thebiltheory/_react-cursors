@@ -4,15 +4,18 @@ import useCursorContext from './useCursorContext'
 export default function useHover() {
   const [value, setValue] = useState(false)
   const ref = useRef<HTMLElement>(null)
-  const { setIsHovering } = useCursorContext()
+
+  const { setCurrentRef } = useCursorContext()
 
   const handleMouseEvents = useCallback(
     ({ clientX: x, clientY: y }) => {
       if (ref && ref.current) {
         const { bottom, left, right, top } = ref.current.getBoundingClientRect()
         const isOverlapping = x >= left && x <= right && y >= top && y <= bottom
-        setIsHovering(isOverlapping)
         setValue(isOverlapping)
+        if (isOverlapping) {
+          setCurrentRef({ current: ref.current, hover: isOverlapping })
+        }
       }
     },
     [setValue, ref]
