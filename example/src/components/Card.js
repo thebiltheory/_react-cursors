@@ -16,6 +16,7 @@ const Card = ({ image }) => {
     <article
       ref={starRef}
       style={{
+        maxWidth: '300px',
         backgroundColor: isHover ? 'mediumspringgreen' : 'lightsteelblue',
         margin: '10px',
       }}

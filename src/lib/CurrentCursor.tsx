@@ -9,6 +9,7 @@ import React, {
 import { motion } from 'framer-motion'
 import { CursorContext } from './CursorContext'
 import useEventListener from '../hooks/useEventListener'
+import useIsNear from '../hooks/useIsNear'
 
 /**
  *
@@ -24,6 +25,8 @@ import useEventListener from '../hooks/useEventListener'
 const CurrentCursor = ({ nextCursor, nextRef }: any) => {
   const [currentCursorId, setCurrentCursorId] = useState(nextCursor)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [test, isNearHandle] = useIsNear(nextRef)
+  console.log(test)
 
   const { cursors } = useContext<any>(CursorContext)
 
@@ -34,7 +37,10 @@ const CurrentCursor = ({ nextCursor, nextRef }: any) => {
     [setMousePosition]
   )
 
-  useEventListener('mousemove', onMouseMove)
+  useEventListener('mousemove', (e: Event) => {
+    onMouseMove(e)
+    isNearHandle(e)
+  })
 
   useEffect(() => {
     setCurrentCursorId(nextCursor)
